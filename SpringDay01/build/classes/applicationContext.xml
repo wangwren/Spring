@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- id随便起，class为类的完整名称 -->
+    <bean id="userService" class="vvr.IoC.UserServiceImpl">
+    	<!-- 相当于注入一个字符串，并赋值，value用于普通属性的赋值 -->
+    	<property name="name" value="小明"/>
+    </bean>
+    
+    
+    <!-- 演示依赖注入，对象之间 -->
+    <bean id="CustomerDao" class="vvr.DI.CustomerDaoImpl"/>
+    <bean id="CustomerService" class="vvr.DI.CustomerServiceImpl">
+    	<!-- 加入依赖 ,name为service中的属性名称，ref为引用，即上面配置的bean的ID-->
+    	<property name="customerDao" ref="CustomerDao"/>
+    </bean>
+</beans>

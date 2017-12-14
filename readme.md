@@ -59,3 +59,63 @@ public void run(){
    </bean>
 ```
 代码参考:[Demo3](https://github.com/wangwren/Spring/tree/master/SpringDay01/src/vvr/DI)  
+#### Spring框架的属性注入
+1. 对于类成员变量，常用的注入方式有两种
+    - 构造函数注入
+    - 属性setter方法注入
+2. 注入方式:
+    - 构造方法的注入方式
+```java
+//java类
+//通过构造方法注入
+	private String name;
+	private double price;
+	
+	public Car(String name, double price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [name=" + name + ", price=" + price + "]";
+	}
+	
+//applicationContext.xml
+<!-- 通过构造方法注入 -->
+    <bean id="car" class="vvr.demo4.Car">
+    	<!-- 通过构造方法注入需要使用constructor-arg标签，name表示属性名，value表示想要传入的值
+    		 index表示第几个属性，从0开始 -->
+    	<!-- <constructor-arg name="name" value="保时捷"/>
+    	<constructor-arg name="price" value="100000000000000"/> -->
+    	<constructor-arg index="0" value="怕哪摸哪"/>
+    	<constructor-arg index="1" value="100000000000000"/>
+    </bean>
+```
+    - 构造函数注入时，传入的是对象
+```java
+//通过构造函数注入对象
+	
+	private String name;
+	private Car car;
+	
+	public Person(String name, Car car) {
+		super();
+		this.name = name;
+		this.car = car;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", car=" + car + "]";
+	};
+//applicationContext.xml
+<!-- 通过构造函数注入对象 -->
+    <bean id="person" class="vvr.demo4.Person">
+    	<constructor-arg name="name" value="小明"/>
+    	<constructor-arg name="car" ref="car"/>
+    </bean>
+```
+3. 属性setter的方式已经提到过，可查看源代码，setter比较常用
+

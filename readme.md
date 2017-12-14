@@ -2,7 +2,7 @@
 ## Ioc
 - IoC   Inverse of Control，控制反转，将对象的创建权反转给Spring
 - 使用IOC可以解决的程序耦合性高的问题
-- 入门:[SpringDay01]()
+- 入门:[Demo2](https://github.com/wangwren/Spring/tree/master/SpringDay01/src/vvr/IoC)
 ### Spring框架中的工厂
 1. `ApplicationContext`接口(推荐)
     - 使用`ApplicationContext`工厂的接口，使用该接口可以获取到具体的Bean对象
@@ -58,4 +58,4 @@ public void run(){
             <property name="uname" value="小风"/>
    </bean>
 ```
-代码参考:
+代码参考:[Demo3](https://github.com/wangwren/Spring/tree/master/SpringDay01/src/vvr/DI)  

@@ -93,7 +93,7 @@ public void run(){
     	<constructor-arg index="1" value="100000000000000"/>
     </bean>
 ```
-    - 构造函数注入时，传入的是对象
+- 构造函数注入时，传入的是对象
 ```java
 //通过构造函数注入对象
 	

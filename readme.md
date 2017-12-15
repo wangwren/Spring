@@ -118,4 +118,117 @@ public void run(){
     </bean>
 ```
 3. 属性setter的方式已经提到过，可查看源代码，setter比较常用
-
+#### Spring的2.5版本中提供了一种:p名称空间的注入
+- 需要先引入 p 名称空间
+    - 在schema的名称空间中加入该行：`xmlns:p="http://www.springframework.org/schema/p"`
+- 使用p名称空间的语法
+    - p:属性名 = ""
+    - p:属性名-ref = ""
+- 测试
+```java
+<bean id="person" class="com.itheima.demo4.Person" p:pname="老王" p:car2-ref="car2"/>
+```
+#### Spring的3.0提供了一种:SpEL注入方式
+- SpEL：Spring Expression Language是Spring的表达式语言，有一些自己的语法
+- 语法:`#{SpEL}`
+- 例如
+```java
+<!-- SpEL的方式 -->
+    <bean id="person" class="com.itheima.demo4.Person">
+        <property name="pname" value="#{'小风'}"/>
+        <property name="car2" value="#{car2}"/>
+    </bean>
+```
+- 还支持调用类中的属性或者方法
+#### 数组，集合(List,Set,Map),Properties等的注入
+- 如果是数组或者List集合，注入配置文件的方式相同
+```java
+<!-- 注入数组 -->
+    	<property name="arrs">
+    		<list>
+    			<value>aaa</value>
+    			<value>bbb</value>
+    		</list>
+    	</property>
+    	
+    	<!-- 注入List -->
+    	<property name="list">
+    		<list>
+    			<!-- 如果list的泛型是一个对象，也可以注入引用，格式: <ref bean="person"/> -->
+    			<value>ccc</value>
+    			<value>ddd</value>
+    		</list>
+    	</property>
+```
+- 如果是Set集合，注入的配置文件方式:
+```java
+<!-- 注入Set -->
+    	<property name="set">
+    		<set>
+    			<value>eee</value>
+    			<value>fff</value>
+    		</set>
+    	</property>
+```
+- 如果是Map集合，注入的配置方式:
+```java
+<!-- 注入Map -->
+    	<property name="map">
+    		<map>
+    			<entry key="123" value="ggg"></entry>
+    			<entry key="456" value="hhh"></entry>
+    		</map>
+    	</property>
+```
+- 如果是properties属性文件的方式，注入的配置:
+```java
+<!-- 注入properties文件 -->
+    	<property name="pro">
+    		<props>
+    			<prop key="username">root</prop>
+    			<prop key="password">root</prop>
+    		</props>
+    	</property>
+```
+#### Spring框架的配置文件分开管理
+在src目录下又多创建了一个配置文件，现在是两个核心的配置文件，那么加载这两个配置文件的方式有两种  
+- 主配置文件中包含其他配置文件
+```java
+<import resource="applicationContext2.xml"/>
+```
+- 工厂创建的时候直接加载多个配置文件:
+```java
+ ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                    "applicationContext.xml","applicationContext2.xml");
+```
+#### Spring框架整合WEB(不是最终方案)
+1. 创建JavaWEB项目，引入Spring的开发包。编写具体的类和方法。
+    * 环境搭建好后，启动服务器来测试项目，发送每访问一次都会加载一次配置文件，这样效率会非常非常慢！
+2. 解决上面的问题
+    * 将工厂创建好了以后放入到ServletContext域中.使用工厂的时候,从ServletContext中获得.
+        * ServletContextListener:用来监听ServletContext对象的创建和销毁的监听器.
+        * 当ServletContext对象创建的时候:创建工厂 , 将工厂存入到ServletContext
+3. Spring整合Web项目
+    * 引入spring-web-4.2.4.RELEASE.jar包
+    * 配置监听器(在web.xml文件中配置,写法固定)
+```java
+<!-- 配置Spring的核心监听器: -->
+         <listener>
+            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+         </listener>
+         <context-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:applicationContext.xml</param-value>
+         </context-param>
+```
+4. 修改servlet的代码
+    * 从ServletContext中获得工厂
+    * 具体代码如下
+```java
+ServletContext servletContext = ServletActionContext.getServletContext();
+        // 需要使用WEB的工厂的方式
+        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        CustomerService cs = (CustomerService) context.getBean("customerService");
+        cs.save();  
+```
+ 

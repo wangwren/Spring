@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 配置业务逻辑层的Customer -->
+	<bean id="customerService" class="vvr.service.CustomerServiceImpl">
+		<property name="csd" ref="customerDao"/>
+	</bean>
+	
+	<!-- 配置Dao层的Customer -->
+	<bean id="customerDao" class="vvr.dao.CustomerDaoImpl"/>
+</beans>

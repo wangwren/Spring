@@ -252,7 +252,7 @@ ServletContext servletContext = ServletActionContext.getServletContext();
 ```java
 <context:component-scan base-package="vvr.spring"/>
 ```
-这样是扫描vvr.spring包下所有的内容
+这样是扫描vvr.spring包下所有的内容  
 5. 在实现类上添加注解
 ```java
 @Component(value="userService") 

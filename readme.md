@@ -231,4 +231,56 @@ ServletContext servletContext = ServletActionContext.getServletContext();
         CustomerService cs = (CustomerService) context.getBean("customerService");
         cs.save();  
 ```
+### Spring框架的IoC功能之注解的方式
+1. 需要导入一个Spring框架的AOP的jar包，spring-aop.jar
+2. 编写类
+3. 在src目录下，创建`applicationContext.xml`的配置文件，然后引入约束。(因为现在想使用注解的方式，那么引入的约束发生了变化)
+```java
+<beans xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
+
+</beans>
+```
+4. 在`applicationContext.xml`配置文件中开启组件扫描
+```java
+<context:component-scan base-package="vvr.spring.demo1"/>
+```
+**注意**:也可以采用如下配置:  
+```java
+<context:component-scan base-package="vvr.spring"/>
+```
+这样是扫描vvr.spring包下所有的内容
+5. 在实现类上添加注解
+```java
+@Component(value="userService") 
+//等价于  <bean id="userService" class="vvr.spring.demo1.UserServiceImpl">
+```
+6. 编写测试代码
+
+#### Spring框架中Bean管理的常用注解
+1. @Component  组件 (作用在类上)
+2. Spring中提供@Component的三个衍生注解:
+    * @Controller   作用在WEB层
+    * @Service  作用在业务层
+    * @Repository  作用在持久层
+3. 属性注入的注解(说明:使用注解注入的方式，可以不提供set方法)
+    * 如果注入的是基本数据类型和字符串，可以使用Value注解
+        * @Value   用于注入基本数据类型和String类型
+    * 如果注入的是对象类型，使用如下注解
+        * @Autowired   默认按类型进行自动装配
+            * 如果想按名称注入
+            * @Qualifier  强制使用名称注入(需要和@Autowired一起使用)
+    * @Resource  相当于@Autowired和@Qualifier一起使用
+        * 这个是java提供的注解，spring对其支持
+        * 属性使用name属性
+#### Bean的作用范围和生命周期的注解
+1. Bean的作用范围注解
+    * 注解为@Scope(value="prototype"),作用在类上。
+2. Bean的声明周期的配置
+    * 注解如下:
+        * @PostConstruct    -- 相当于init-method
+        * PreDestroy       -- 相当于destroy-method
  

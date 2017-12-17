@@ -259,6 +259,7 @@ ServletContext servletContext = ServletActionContext.getServletContext();
 //等价于  <bean id="userService" class="vvr.spring.demo1.UserServiceImpl">
 ```
 6. 编写测试代码
+[测试代码](https://github.com/wangwren/Spring/tree/master/SpringDay02/src/vvr/spring/demo1)
 
 #### Spring框架中Bean管理的常用注解
 1. @Component  组件 (作用在类上)

@@ -283,5 +283,25 @@ ServletContext servletContext = ServletActionContext.getServletContext();
 2. Bean的声明周期的配置
     * 注解如下:
         * @PostConstruct    -- 相当于init-method
-        * PreDestroy       -- 相当于destroy-method
+        * @PreDestroy       -- 相当于destroy-method
+#### Spring框架整合JUnit单元测试
+- 为了简化JUnit测试，可以使用Spring框架也可以(保证不必每次测试类都需要写工厂)
+- 步骤
+    - 必须先有JUnit的环境
+    - 在程序中导入:`spring-test.jar`
+    - 在具体的测试类上添加注解
+```java
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:applicationContext.xml")
+public class Demo2 {
+
+	@Resource(name="userService")
+	private UserService us;
+	
+	@Test
+	public void run() {
+		us.sayHello();
+	}
+}
+```
  

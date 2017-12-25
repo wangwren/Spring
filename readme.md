@@ -315,6 +315,7 @@ public class Demo2 {
     1. 如果实现类接口，使用JDK动态代理完成AOP
     2. 如果没有实现接口，采用CGLIB动态代理完成AOP
 ### Spring基于AspectJ的AOP的开发
+[入门代码](https://github.com/wangwren/Spring/tree/master/SpringDay02_aop/src/vvr/demo1)
 #### 技术分析之AOP的相关术语
 1. Joinpoint(连接点)   -- 所谓连接点是指那些被拦截到的点。在spring中,这些点指的是方法,因为spring只支持方法类型的连接点
 2. Pointcut(切入点)        -- 所谓切入点是指我们要对哪些Joinpoint进行拦截的定义
@@ -324,7 +325,7 @@ public class Demo2 {
 6. Weaving(织入)      -- 是指把增强应用到目标对象来创建新的代理对象的过程
 7. Proxy（代理）        -- 一个类被AOP织入增强后，就产生一个结果代理类
 8. Aspect(切面)           -- 是切入点和通知的结合，以后咱们自己来编写和配置的
-### 切入点的表达式
+#### 切入点的表达式
 - 切入点表达式的格式如下:
     - `execution([修饰符] 返回值类型 包名.类名.方法名(参数)`
 - 修饰符可以省略不写，不是必须要出现的。
@@ -335,7 +336,7 @@ public class Demo2 {
 - 类名也可以使用`*`代替:`*DaoImpl`
 - 方法也可以使用`*`代替
 - 参数如果是一个参数可以使用`*`代替，如果想代表任意参数可以使用`..`
-### AOP的通知类型
+#### AOP的通知类型
 - 前置通知
     - 在目标类的方法执行之前执行
     - 配置文件信息:`<aop:after method="before" pointcut-ref="myPointcut3"/>`

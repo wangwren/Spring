@@ -24,6 +24,6 @@ public class Demo {
 	public void run() {
 		
 		cDao.save();
-		cDao.update();
+		//cDao.update();
 	}
 }

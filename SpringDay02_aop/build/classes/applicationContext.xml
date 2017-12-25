@@ -22,8 +22,16 @@
   		 -->
   		<!-- <aop:before method="log" pointcut="execution(public void vvr.demo1.CustomerDaoImpl.save())"/> -->
   		
-  		<!-- 切入点表达式 -->
+  		<!-- 切入点表达式
   		<aop:before method="log" pointcut="execution(* *..*.*DaoImpl.save*(..))"/>
+  		 -->
+  		 
+  		 <!-- 最终通知 
+  		 <aop:after method="after" pointcut="execution(* *..*.*DaoImpl.save*(..))"/>
+  		 -->
+  		 
+  		 <!-- 环绕通知 -->
+  		 <aop:around method="around" pointcut="execution(* *..*.*DaoImpl.save*(..))"/>
   	</aop:aspect>
   </aop:config>
   </beans>

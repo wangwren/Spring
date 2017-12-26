@@ -462,3 +462,4 @@ public class Demo {
         public void fn(){}
     }
 ```
+[AOP注解方式代码](https://github.com/wangwren/Spring/tree/master/SpringDay03_aop/src/vvr/aopanno/demo)  

@@ -376,4 +376,89 @@ public class Demo2 {
 		System.out.println("环绕通知2...");
 	}
 ```
- 
+#### AOP注解方式
+1. 将目标类配置到Spring配置文件中
+```java
+<bean id="customerDao" class="vvr.aopanno.demo.CustomerDaoImpl"/>
+```
+2. 定义切面类
+    - 添加切面和通知的注解
+        - `@Aspect` 定义切面类的注解
+     - 通知类型(注解的参数是切入点的表达式)
+        - `@Before` 前置通知
+        - `@AfterReturing` 后置通知
+        - `@Around` 环绕通知
+        - `@After` 最终通知
+        - `@AfterThrowing` 异常抛出通知
+    - 具体代码:
+```java
+@Aspect
+public class MyAspectAnno {
+
+	/**
+	 * 后置通知，value属性中填写切入点表达式
+	 */
+	@Before(value="MyAspectAnno.fn()")
+	public void log() {
+		System.out.println("记录日志...");
+	}
+	
+	/**
+	 * 最终通知
+	 * @param joinPoint
+	 */
+	@Around(value="MyAspectAnno.fn()")
+	public void around(ProceedingJoinPoint joinPoint) {
+		System.out.println("环绕通知1...");
+		try {
+			joinPoint.proceed();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("环绕通知2...");
+	}
+	
+	@Pointcut(value="execution(* *..*.*DaoImpl.save*(..))")
+	public void fn() {}
+}
+```
+3. 配置文件中定义切面类
+`<bean id="myAspectAnno" class="vvr.aopanno.demo.MyAspectAnno"/>`
+4. 在配置文件中开启自动代理`<aop:aspectj-autoproxy/>`
+5. 完成测试
+```java
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:applicationContext.xml")
+public class Demo {
+
+	@Resource(name="customerDao")
+	private CustomerDao customerDao;
+	
+	@Test
+	public void run() {
+		
+		customerDao.save();
+		customerDao.update();
+	}
+}
+```
+#### 注解方式的通知类型
+   * @Before               -- 前置通知
+   * @AfterReturing        -- 后置通知
+   * @Around               -- 环绕通知（目标对象方法默认不执行的，需要手动执行）
+   * @After                -- 最终通知
+   * @AfterThrowing        -- 异常抛出通知
+#### 配置通用的切入点
+   * 使用@Pointcut定义通用的切入点
+```java
+ @Aspect
+    public class MyAspectAnno {
+        @Before(value="MyAspectAnno.fn()")
+        public void log(){
+            System.out.println("记录日志...");
+        }
+        @Pointcut(value="execution(public void com.itheima.demo1.CustomerDaoImpl.save())")
+        public void fn(){}
+    }
+```

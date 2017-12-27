@@ -468,8 +468,8 @@ public class Demo {
 2. 提供了JDBC模板，Spring框架提供的
     - `JdbcTemplate`类
 3. Spring框架可以整合Hibernate框架
-    - `HibernateTemplate`类
-代码参照:[JDBC模板]()
+    - `HibernateTemplate`类  
+代码参照:[JDBC模板](https://github.com/wangwren/Spring/tree/master/SpringDay04_jdbc/src/vvr/jdbc/demo)
 #### Spring框架管理开源连接池
 - DBCP连接池
     - 引入jar包
@@ -497,4 +497,4 @@ public class Demo {
         </bean>
 ```
 #### Spring框架的JDBC模板的操作
-参考代码:[操作]()
+参考代码:[操作](https://github.com/wangwren/Spring/blob/master/SpringDay04_jdbc/src/vvr/jdbc/demo/Demo1_1.java)

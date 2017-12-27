@@ -463,3 +463,38 @@ public class Demo {
     }
 ```
 [AOP注解方式代码](https://github.com/wangwren/Spring/tree/master/SpringDay03_aop/src/vvr/aopanno/demo)  
+### Spring框架的JDBC模板
+1. Spring框架中提供了很多持久层的模板类来简化编程，使用模板类编写会变得简单。
+2. 提供了JDBC模板，Spring框架提供的
+    - `JdbcTemplate`类
+3. Spring框架可以整合Hibernate框架
+    - `HibernateTemplate`类
+代码参照:[JDBC模板]()
+#### Spring框架管理开源连接池
+- DBCP连接池
+    - 引入jar包
+        - com.springsource.org.apache.commons.dbcp-1.2.2.osgi.jar
+        - com.springsource.org.apache.commons.pool-1.5.3.jar
+    - 配置文件
+```java
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/spring_day03?useSSL=false"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root"/>
+	</bean>
+```
+- c3p0连接池
+    - 引入jar包
+         -  com.springsource.com.mchange.v2.c3p0-0.9.1.2.jar
+    - 编写配置文件
+```java
+ <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+            <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+            <property name="jdbcUrl" value="jdbc:mysql:///spring_day03"/>
+            <property name="user" value="root"/>
+            <property name="password" value="root"/>
+        </bean>
+```
+#### Spring框架的JDBC模板的操作
+参考代码:[操作]()

@@ -537,6 +537,6 @@ public class Demo {
         * PROPAGATION_NESTED（记）     -- 嵌套事务.当A执行之后,就会在这个位置设置一个保存点.如果B没有问题.执行通过.如果B出现异常,运行客户根据需求回滚(选择回滚到保存点或者是最初始状态)
 #### 事务管理转账案例基于AspectJ的XML方式
 - 简化开发，可以让Dao继承`JdbcDaoSupport`类，则免去JDBC模板的配置，业务逻辑层中只需注入dataSource即可
-- 参照代码[转账之XML]()
+- 参照代码[转账之XML](https://github.com/wangwren/Spring/tree/master/SpringDay05_tx/src/vvr/demo1)
 #### 事务管理转账案例基于AspectJ的注解方式(最简单的方式)
-- 参照代码[转账之注解]()
+- 参照代码[转账之注解](https://github.com/wangwren/Spring/tree/master/SpringDay05_tx/src/vvr/demo2)

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	
+	<!-- 配置c3p0连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring_day03?useSSL=false"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+	</bean>
+	
+	<!-- 配置事务管理器-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 配置事务增强 -->
+	<tx:advice id="myAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 指定业务逻辑层service中想要开启事务的方法
+				 并且可以指定一些数据库操作（隔离级别，传播行为），不指定即为默认值
+				 可以写多个tx:method来指定想要开启事务的方法
+			 -->
+			<tx:method name="pay"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置AOP切面产生代理
+		 对于自己编写的切面，使用<aop:aspect>标签，如果是Spring提供的通知，就使用<aop:advisor>标签
+	 -->
+	<aop:config>
+		<aop:advisor advice-ref="myAdvice" pointcut="execution(* vvr.demo1.AccountServiceImpl.pay(..))"/>
+	</aop:config>
+	
+	
+	<!-- 配置JDBC模板类 -->
+	<!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		注入连接池
+		<property name="dataSource" ref="dataSource"/>
+	</bean> -->
+	
+	
+	
+	<!-- 配置持久层和业务逻辑层 -->
+	<bean id="accountDao" class="vvr.demo1.AccountDaoImpl">
+		<!-- <property name="jdbcTemplate" ref="jdbcTemplate"/> -->
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="accountService" class="vvr.demo1.AccountServiceImpl">
+		<property name="accountDao" ref="accountDao"/>
+	</bean>
+	
+</beans>

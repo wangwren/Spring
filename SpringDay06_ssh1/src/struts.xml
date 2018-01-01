@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+
+    <package name="crm" extends="struts-default" namespace="/">
+    	<!-- 此方法由struts2框架自己来管理action 
+    	<action name="customer_*" class="vvr.web.action.CustomerAction" method="{1}">
+    		<result></result>
+    		<allowed-methods>add</allowed-methods>
+    	</action> -->
+    	
+    	<!-- 配置客户的action，如果action由Spring来管理，那么class就需要写applicationContext.xml的中的id值 -->
+    	<action name="customer_*" class="customerAction" method="{1}">
+    		<result></result>
+    		<allowed-methods>add</allowed-methods>
+    	</action>
+    </package>
+    
+</struts>

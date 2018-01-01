@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+	
+<hibernate-configuration>
+	
+	<session-factory>
+		<!-- 必须配置 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">dbc:mysql://localhost:3306/SpringDay06_ssh1?useSSL=false</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property> <!-- 对应数据库的方言 -->
+		
+		<!-- 可选配置 -->
+		<property name="hibernate.show_sql">true</property>	<!-- 显示sql语句 -->
+		<property name="hibernate.format_sql">true</property> <!-- 格式化sql语句 -->
+		<property name="hibernate.hbm2ddl.auto">update</property> <!-- 生成数据库的表结构 -->
+		
+		<!-- 配置C3P0的连接池 -->
+		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		
+		<!-- 映射配置文件 -->
+		<mapping resource="com/itheima/domain/Customer.hbm.xml"/>
+	</session-factory>
+	
+</hibernate-configuration>	

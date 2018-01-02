@@ -541,8 +541,8 @@ public class Demo {
 #### 事务管理转账案例基于AspectJ的注解方式(最简单的方式)
 - 参照代码[转账之注解](https://github.com/wangwren/Spring/tree/master/SpringDay05_tx/src/vvr/demo2)
 ## SSH框架整合
-[第一种整合方案]()  
-[第二种整合方案]()  
+[第一种整合方案](https://github.com/wangwren/Spring/tree/master/SpringDay06_ssh1)  
+[第二种整合方案](https://github.com/wangwren/Spring/tree/master/SpringDay07_ssh2)  
 只是整合hibernate时不同，推荐使用第二种整合。  
 - struts2需要导入一个`struts2-spring-plugin.jar`的jar包
 #### 延迟加载问题

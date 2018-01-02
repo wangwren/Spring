@@ -1,8 +1,11 @@
 package vvr.service;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import vvr.dao.CustomerDao;
 import vvr.domain.Customer;
 
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
 	private CustomerDao customerDao;

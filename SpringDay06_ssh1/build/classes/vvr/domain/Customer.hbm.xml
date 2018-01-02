@@ -5,7 +5,7 @@
     
 <hibernate-mapping>
 	
-	<class name="com.itheima.domain.Customer" table="cst_customer">
+	<class name="vvr.domain.Customer" table="cst_customer">
 		<id name="cust_id" column="cust_id">
 			<generator class="native"/>
 		</id>

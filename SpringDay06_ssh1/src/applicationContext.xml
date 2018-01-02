@@ -13,6 +13,21 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
+	<!-- 编写bean，名称都是固定写法，用于加载hibernate.cfg.xml,并生成sessionFactory对象 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 注入配置文件 -->
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+	</bean>
+	
+	<!-- 配置平台事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<!-- 注入连接池，hibernate是由session来管理，所以传入sessionFactory即可 -->
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
 	<!-- 配置客户 -->
 	<bean id="customerAction" class="vvr.web.action.CustomerAction" scope="prototype">
 		<property name="customerService" ref="customerService"/>
@@ -22,11 +37,16 @@
 		<property name="customerDao" ref="customerDao"/>
 	</bean>
 	
-	<bean id="customerDao" class="vvr.dao.CustomerDaoImpl"></bean>
-	
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
-		<property name="sessionFactory" ref=""/>
+	<bean id="customerDao" class="vvr.dao.CustomerDaoImpl">
+		<!-- <property name="hibernateTemplate" ref="hibernateTemplate"/> -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	
+	<!-- 
+		dao层继承HibernateDaoSupport后，则可以不用写如下代码，也不需要注入hibernateTemplate。只需在dao中注入sessionFactory
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory"/>
+	</bean> -->
 	
 </beans>
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+
+    <package name="crm" extends="struts-default" namespace="/">
+    	
+<!--     	配置一个全局的跳转界面，返回LOGIN就跳转到登录界面-->
+    	<global-results>
+    		<result name="login" type="redirect">/login.jsp</result>
+    	</global-results>
+    	
+    	<!-- 配置用户 -->
+    	<action name="user_*" class="userAction" method="{1}">
+    		<result name="loginOK" type="redirect">/index.jsp</result>
+    		<allowed-methods>regist,checkCode,login,exit</allowed-methods>
+    	</action>
+    	
+    	<!-- 配置客户 -->
+    	<action name="customer_*" class="customerAction" method="{1}">
+    		<result name="page">/jsp/customer/list.jsp</result>
+    		<allowed-methods>add,findByPage</allowed-methods>
+    	</action>
+    </package>
+    
+</struts>

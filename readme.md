@@ -1,9 +1,9 @@
 # Spring
 # 目录
-- **[Ioc](#Ioc)**
-    - **[Spring框架中的工厂](#Spring框架中的工厂)**
-    - **[Spring框架Bean管理的配置文件方式](#Spring框架Bean管理的配置文件方式)**
-        - **[Spring框架中标签的配置](#Spring框架中标签的配置)**
+- **[Ioc](#ioc)**
+    - **[Spring框架中的工厂](#spring框架中的工厂)**
+    - **[Spring框架Bean管理的配置文件方式](#spring框架Bean管理的配置文件方式)**
+        - **[Spring框架中标签的配置](#spring框架中标签的配置)**
 ## Ioc
 - IoC   Inverse of Control，控制反转，将对象的创建权反转给Spring
 - 使用IOC可以解决的程序耦合性高的问题

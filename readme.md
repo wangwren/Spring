@@ -1,4 +1,9 @@
 # Spring
+# 目录
+- **[Ioc](#Ioc)**
+    - **[Spring框架中的工厂](#Spring框架中的工厂)**
+    - **[Spring框架Bean管理的配置文件方式](#Spring框架Bean管理的配置文件方式)**
+        - **[Spring框架中标签的配置](#Spring框架中标签的配置)**
 ## Ioc
 - IoC   Inverse of Control，控制反转，将对象的创建权反转给Spring
 - 使用IOC可以解决的程序耦合性高的问题
@@ -45,7 +50,7 @@ public void run(){
     - destroy-method:当bean从容器中删除的时候调用destory-method属性指定的方法
     - 想查看destory-method的效果，有如下条件:
         - scope=singleton有效
-        - web容器中会自动调用，但是main函数或测试用例需要手动调用(需要使用**`ClassPathXmlApplicationContext`**的close()方法)
+        - web容器中会自动调用，但是main函数或测试用例需要手动调用(需要使用**`ClassPathXmlApplicationContext`**的close()方法
 #### 依赖注入(DI)
 - 概念:
     - IOC       -- Inverse of Control，控制反转，将对象的创建权反转给Spring！！

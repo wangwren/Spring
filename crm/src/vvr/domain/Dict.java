@@ -26,6 +26,8 @@ public class Dict {
 	private int dict_sort;
 	private String dict_enable;
 	private String dict_memo;
+	
+	
 	public String getDict_id() {
 		return dict_id;
 	}

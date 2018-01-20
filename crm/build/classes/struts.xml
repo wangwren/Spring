@@ -24,6 +24,11 @@
     		<result name="page">/jsp/customer/list.jsp</result>
     		<allowed-methods>add,findByPage</allowed-methods>
     	</action>
+    	
+    	<!-- 配置客户字典 -->
+    	<action name="dict_*" class="dictAction" method="{1}">
+    		<allowed-methods>findByCode</allowed-methods>
+    	</action>
     </package>
     
 </struts>

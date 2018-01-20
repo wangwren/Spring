@@ -9,7 +9,7 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
 <SCRIPT language=javascript>
 
 	//提交分页查询的表单
@@ -22,6 +22,50 @@
 		document.customerForm.submit();
 		
 	}
+	
+	//使用JQ实现客户级别和客户来源的异步查询
+	//页面加载完成后发送ajax请求
+	$(function(){
+		//发送ajax请求,获得客户级别
+		var url = "${pageContext.request.contextPath}/dict_findByCode.action";
+		var param = {"dict.dict_type_code" : "006"};
+		//定义返回的是json数据
+		$.post(url,param,function(data){
+			//后台返回的list集合转成json数据是数组，里边存放的是对象，遍历
+			//i代表遍历的下标值，n代表遍历的当前对象
+			$(data).each(function(i,n){
+				//JQ的DOM操作
+				
+				//对于客户级别和来源的数据回显
+				//值栈中的dict_id和json数据中对象的dict_id相同就是先前想要查询的条件,值栈中的值也可以用EL表达式取出
+				var vsId = "${model.level.dict_id}";
+				if(vsId == n.dict_id){
+					$("#levelId").append("<option value='" + n.dict_id + "' selected>" + n.dict_item_name + "</option>");
+				}else{
+					$("#levelId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				}
+			});
+		},"json");
+		
+		//客户来源的异步查询
+		var url = "${pageContext.request.contextPath}/dict_findByCode.action";
+		var param = {"dict.dict_type_code" : "002"};
+		//定义返回的是json数据
+		$.post(url,param,function(data){
+			//后台返回的list集合转成json数据是数组，里边存放的是对象，遍历
+			//i代表遍历的下标值，n代表遍历的当前对象
+			$(data).each(function(i,n){
+				//JQ的DOM操作
+				var vsId = "${model.source.dict_id}";
+				if(vsId == n.dict_id){
+					$("#sourceId").append("<option value='" + n.dict_id + "' selected>" + n.dict_item_name + "</option>");
+				}else{
+					$("#sourceId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				}
+			});
+		},"json");
+		
+	})
 </SCRIPT>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
@@ -66,11 +110,29 @@
 											<TBODY>
 												<TR>
 													<TD>客户名称：</TD>
-													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="custName"></TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="cust_name" value="${model.cust_name}">
+													</TD>
 													
-													<TD><INPUT class=button id=sButton2 type=submit
-														value=" 筛选 " name=sButton2></TD>
+													<td>客户级别</td>
+													<td>
+														<!-- 在customer中封装的是dict对象，所以name需要这样写，
+														由于customer实现了模型驱动，所以不用加customer，客户来源同理 -->
+														<select name="level.dict_id" id="levelId">
+															<option value="">----请选择----</option>
+														</select>
+													</td>
+													
+													<td>客户来源</td>
+													<td>
+														<select name="source.dict_id" id="sourceId">
+															<option value="">----请选择----</option>
+														</select>
+													</td>
+													
+													<TD>
+														<INPUT class=button id=sButton2 type=submit value="筛选 " name=sButton2>
+													</TD>
 												</TR>
 											</TBODY>
 										</TABLE>
@@ -122,12 +184,22 @@
 									<TD><SPAN id=pagelink>
 											<DIV
 												style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
-												共[<B>${page.totalCount}</B>]条记录,共[<B>${page.totalPage}</B>]页
+												<%-- 共[<B>${page.totalCount}</B>]条记录,共[<B>${page.totalPage}</B>]页 --%>
 												
+												当前第[${page.pageCode }]页
 												<s:if test="#request.page.pageCode > 1">
 													[<A href="javascript:to_page(${page.pageCode-1})">前一页</A>]
 												</s:if>
-												<B>${page.pageCode}</B>
+												
+												<s:iterator var="num" begin="#request.page.startPage" end="#request.page.totalPage" >
+													
+													<B>
+														<a href="javascript:to_page(${num})">${num}</a>
+													</B>
+												
+												</s:iterator>
+												
+												
 												<s:if test="#request.page.pageCode < #request.page.totalPage">
 												[<A href="javascript:to_page(${page.pageCode+1})">后一页</A>] 
 												</s:if>

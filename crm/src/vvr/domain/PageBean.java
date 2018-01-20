@@ -11,6 +11,9 @@ public class PageBean<T> {
 	// 当前页
 	private int pageCode;
 	
+	//起始页
+	private int startPage = 1;
+	
 	// 总页数
 	//private int totalPage;
 	
@@ -21,6 +24,12 @@ public class PageBean<T> {
 	// 每页显示的数据
 	private List<T> beanList;
 	
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
 	public int getPageCode() {
 		return pageCode;
 	}

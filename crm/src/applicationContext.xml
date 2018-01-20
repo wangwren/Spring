@@ -81,6 +81,19 @@
 	<bean id="customerDao" class="vvr.dao.CustomerDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	
+	<!-- 配置客户字典 -->
+	<bean id="dictAction" class="vvr.web.action.DictAction" scope="prototype">
+		<property name="dictService" ref="dictService"/>
+	</bean>
+	
+	<bean id="dictService" class="vvr.service.DictServiceImpl">
+		<property name="dictDao" ref="dictDao"/>
+	</bean>
+	
+	<bean id="dictDao" class="vvr.dao.DictDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 </beans>
 
 

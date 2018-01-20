@@ -803,4 +803,23 @@ public class Demo {
 	
 ----------
 ## SSH练习
+[crm]()
+### 按条件查询所有客户
+1. 使用异步的方式加载客户级别和客户的来源
+    * 前端使用JQuery的ajax技术
+    * 后端使用fastjson的jar包
+        * 导入fastjson的开发jar包fastjson-1.2.8.jar(阿里提供的)
+        * String s = JSON.toJSONString(集合)
+        * String s = JSON.toJSONString(对象)
+
+    * 如果List集合中存入相同引用的对象
+        * fastjson默认的情况下是进行循环检测的，去除掉死循环调用的方式
+        * 可以使用JSON.toJSONString(p,SerializerFeature.DisableCircularReferenceDetect) 去除循环检测，但是就会出现死循环的效果
+        * 最后可以使用注解：@JSONField(serialize=false)对指定的属性不转换成json
+
+2. 异步获取客户级别
+    - 页面加载完成后异步获取客户级别
+    - 通过条件查询客户，都写在一个form表单中，所以需要后台拼接条件
+    - 数据回显的操作
+    - 详情看代码
 

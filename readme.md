@@ -824,4 +824,6 @@ public class Demo {
     - 详情看代码
 ### 保存客户，带有文件上传
 文件上传详细介绍参见[struts2](https://github.com/wangwren/Struts/blob/master/readme.md)
+### 客户删除
+删除客户，并删除客户上传的文件
 

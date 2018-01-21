@@ -170,7 +170,8 @@
 														<TD>
 														<a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
 														&nbsp;&nbsp;
-														<a href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=${customer.cust_id}">删除</a>
+														<!-- cust_id为模型驱动中的属性，不必在action中再添加该属性，customer中有 -->
+														<a href="${pageContext.request.contextPath }/customer_delete.action?cust_id=${customer.cust_id}" onclick="return window.confirm('确定要删除吗?')">删除</a>
 														</TD>
 													</TR>
 												</s:iterator>

@@ -183,6 +183,32 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	public String initAddUI() throws Exception{
 		return "initAddUI";
 	}
+	
+	/**
+	 * 删除指定客户，并删除该客户上传的文件
+	 * @return
+	 * @throws Exception
+	 */
+	public String delete() throws Exception{
+		
+		//先查询出该客户信息，获得上传文件的路径
+		customer = customerService.findById(customer.getCust_id());
+		
+		//获取上传文件的路径
+		String filePath = customer.getFilePath();
+		
+		//删除客户
+		customerService.delte(customer);
+		
+		//删除文件
+		File file = new File(filePath);
+		//如果这个文件存在
+		if(file.exists()) {
+			file.delete();
+		}
+		
+		return "delete";
+	}
 
 
 }

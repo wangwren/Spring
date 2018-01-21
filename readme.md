@@ -823,5 +823,5 @@ public class Demo {
     - 数据回显的操作
     - 详情看代码
 ### 保存客户，带有文件上传
-文件上传详细介绍参见[struts2]()
+文件上传详细介绍参见[struts2](https://github.com/wangwren/Struts/blob/master/readme.md)
 

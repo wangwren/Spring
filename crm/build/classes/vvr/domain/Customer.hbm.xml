@@ -22,6 +22,9 @@
 		<property name="cust_phone" column="cust_phone"/>
 		<property name="cust_mobile" column="cust_mobile"/>
 		
+		<!-- 文件上传的路径 -->
+		<property name="filePath" column="filePath"/>
+		
 		<!-- 配置多方，name是javaBean属性，class="一方类的全路径" column="外键的名称" -->
 		<many-to-one name="source" class="vvr.domain.Dict" column="cust_source"/>
 		<many-to-one name="industry" class="vvr.domain.Dict" column="cust_industry"/>

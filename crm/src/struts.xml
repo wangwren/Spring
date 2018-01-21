@@ -6,6 +6,10 @@
 
 <struts>
 
+	<!-- 设置文件上传的总大小 -->
+	<constant name="struts.multipart.maxSize" value="20971520"/>
+	
+	
     <package name="crm" extends="struts-default" namespace="/">
     	
 <!--     	配置一个全局的跳转界面，返回LOGIN就跳转到登录界面-->
@@ -22,7 +26,15 @@
     	<!-- 配置客户 -->
     	<action name="customer_*" class="customerAction" method="{1}">
     		<result name="page">/jsp/customer/list.jsp</result>
-    		<allowed-methods>add,findByPage</allowed-methods>
+    		<result name="initAddUI">/jsp/customer/add.jsp</result>
+    		<result name="add" type="redirectAction">customer_findByPage.action</result>
+    		<result name="input">/jsp/error.jsp</result>
+    		<!-- 设置上传文件的格式 -->
+    		<interceptor-ref name="defaultStack">
+    			<!-- 设置扩展名 -->
+    			<param name="fileUpload.allowedExtensions">.jpg,.png</param>
+    		</interceptor-ref>
+    		<allowed-methods>add,findByPage,initAddUI</allowed-methods>
     	</action>
     	
     	<!-- 配置客户字典 -->

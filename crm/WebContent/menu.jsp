@@ -130,8 +130,7 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="customerServlet?method=add" 
-														target=main>－ 新增客户</A></TD>
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_initAddUI.action" target=main>－ 新增客户</A></TD>
 												</TR>
 												<TR> 
 													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath }/customer_findByPage.action"

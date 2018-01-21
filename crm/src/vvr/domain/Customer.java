@@ -22,6 +22,9 @@ public class Customer {
 	private String cust_phone;
 	private String cust_mobile;
 	
+	//文件上传的路径
+	private String filePath;
+	
 	/*
 	 * 客户是多的一方，需要声明一方的对象，而需求中不需要在一方中显示多方数据，所以一方不用提供set集合保存多方
 	 * 由于客户表中有三个外键对应客户字典表，所以要写三个对象来维护
@@ -96,4 +99,11 @@ public class Customer {
 	public void setCust_mobile(String cust_mobile) {
 		this.cust_mobile = cust_mobile;
 	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
 }

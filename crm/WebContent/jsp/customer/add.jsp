@@ -7,16 +7,45 @@
 <TITLE>添加客户</TITLE> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
-<LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
-	rel=stylesheet>
-
+<LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+
+<script type="text/javascript">
+$(function(){
+	//发送ajax请求,获得客户级别
+	var url = "${pageContext.request.contextPath}/dict_findByCode.action";
+	var param = {"dict.dict_type_code" : "006"};
+	//定义返回的是json数据
+	$.post(url,param,function(data){
+		//后台返回的list集合转成json数据是数组，里边存放的是对象，遍历
+		//i代表遍历的下标值，n代表遍历的当前对象
+		$(data).each(function(i,n){
+			//JQ的DOM操作
+			$("#levelId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+		});
+	},"json");
+	
+	//客户来源的异步查询
+	var url = "${pageContext.request.contextPath}/dict_findByCode.action";
+	var param = {"dict.dict_type_code" : "002"};
+	//定义返回的是json数据
+	$.post(url,param,function(data){
+		//后台返回的list集合转成json数据是数组，里边存放的是对象，遍历
+		//i代表遍历的下标值，n代表遍历的当前对象
+		$(data).each(function(i,n){
+			//JQ的DOM操作
+				$("#sourceId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+		});
+	},"json");
+	
+})
+</script>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/customerServlet?method=addsubmit"
-		method=post>
+		action="${pageContext.request.contextPath }/customer_add.action" method=post enctype="multipart/form-data">
 		
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
@@ -53,12 +82,12 @@
 								<td>客户名称：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custName">
+														style="WIDTH: 180px" maxLength=50 name="cust_name">
 								</td>
 								<td>客户级别 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLevel">
+								<select name="level.dict_id" id="levelId">
+								</select>
 								</td>
 							</TR>
 							
@@ -66,13 +95,13 @@
 								
 								<td>信息来源 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custSource">
+								<select name="source.dict_id" id="sourceId">
+								</select>
 								</td>
 								<td>联系人：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLinkman">
+														style="WIDTH: 180px" maxLength=50 name="cust_linkman">
 								</td>
 							</TR>
 							
@@ -82,12 +111,12 @@
 								<td>固定电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custPhone">
+														style="WIDTH: 180px" maxLength=50 name="cust_phone">
 								</td>
 								<td>移动电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custMobile">
+														style="WIDTH: 180px" maxLength=50 name="cust_mobile">
 								</td>
 							</TR>
 							
@@ -109,10 +138,9 @@
 								<INPUT class=textbox id=sChannel2
 														style="WIDTH: 180px" maxLength=50 name="custFax">
 								</td>
-								<td>客户网址 ：</td>
+								<td>上传资质 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custWebsite">
+									<input type="file" name="upload"/>
 								</td>
 							</TR>
 							<tr>

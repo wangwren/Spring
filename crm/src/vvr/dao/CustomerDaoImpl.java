@@ -22,6 +22,9 @@ public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao 
 	}*/
 
 
+	/**
+	 * 添加客户
+	 */
 	@Override
 	public void save(Customer customer) {
 		
@@ -71,10 +74,23 @@ public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao 
 		return this.getHibernateTemplate().get(Customer.class, cust_id);
 	}
 
+	/**
+	 * 删除客户
+	 */
 	@Override
 	public void delete(Customer customer) {
 		
 		this.getHibernateTemplate().delete(customer);
+	}
+
+	/**
+	 * 修改客户
+	 */
+	@Override
+	public void update(Customer customer) {
+
+		this.getHibernateTemplate().update(customer);
+		
 	}
 
 }

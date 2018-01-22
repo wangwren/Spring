@@ -25,4 +25,6 @@ public interface CustomerDao {
 	public Customer findById(Long cust_id);
 
 	public void delete(Customer customer);
+
+	public void update(Customer customer);
 }

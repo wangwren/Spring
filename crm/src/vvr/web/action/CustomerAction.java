@@ -210,5 +210,53 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		return "delete";
 	}
 
+	
+	/**
+	 * 初始化客户修改界面
+	 * @return
+	 * @throws Exception
+	 */
+	public String initUpdate() throws Exception{
+		
+		//得到客户数据，其实可以不用将该客户数据保存至request域中，该customer对象已经存在值栈中，直接在
+		//jsp界面中通过model取出就行，也可以存，这里就不存了
+		customer = customerService.findById(customer.getCust_id());
+		
+		return "initUpdate";
+	}
+	
+	/**
+	 * 修改客户
+	 * @return
+	 * @throws Exception
+	 */
+	public String update() throws Exception{
+		
+		//如果修改客户上传了新的文件
+		if(uploadFileName != null) {
+			
+			//删除旧的文件
+			String oldFilePath = customer.getFilePath();
+			//如果旧的文件路径存在
+			if(oldFilePath != null && !oldFilePath.trim().isEmpty()) {
+				File f = new File(oldFilePath);
+				f.delete();
+			}
+			
+			//上传新的文件
+			String newFileName = UploadUtils.makeFileName(uploadFileName);
+			String path = "D:\\Tomact\\webapps\\upload\\";
+			File file = new File(path + newFileName);
+			FileUtils.copyFile(upload, file);
+			
+			//更新数据库中该客户的文件路径
+			customer.setFilePath(path + newFileName);
+		}
+		
+		//修改客户
+		customerService.update(customer);
+		
+		return "update";
+	}
 
 }

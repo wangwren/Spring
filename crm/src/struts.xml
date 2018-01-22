@@ -30,12 +30,14 @@
     		<result name="add" type="redirectAction">customer_findByPage.action</result>
     		<result name="input">/jsp/error.jsp</result>
     		<result name="delete" type="redirectAction">customer_findByPage.action</result>
+    		<result name="initUpdate">/jsp/customer/edit.jsp</result>
+    		<result name="update" type="redirectAction">customer_findByPage.action</result>
     		<!-- 设置上传文件的格式 -->
     		<interceptor-ref name="defaultStack">
     			<!-- 设置扩展名 -->
     			<param name="fileUpload.allowedExtensions">.jpg,.png</param>
     		</interceptor-ref>
-    		<allowed-methods>add,findByPage,initAddUI,delete</allowed-methods>
+    		<allowed-methods>add,findByPage,initAddUI,delete,initUpdate,update</allowed-methods>
     	</action>
     	
     	<!-- 配置客户字典 -->

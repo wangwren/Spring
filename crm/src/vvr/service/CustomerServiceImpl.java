@@ -53,4 +53,12 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDao.delete(customer);
 	}
 
+
+	@Override
+	public void update(Customer customer) {
+		
+		customerDao.update(customer);
+		
+	}
+
 }

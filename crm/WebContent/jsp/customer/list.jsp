@@ -168,7 +168,7 @@
 														<TD>${customer.cust_phone }</TD>
 														<TD>${customer.cust_mobile }</TD>
 														<TD>
-														<a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
+														<a href="${pageContext.request.contextPath }/customer_initUpdate.action?cust_id=${customer.cust_id}">修改</a>
 														&nbsp;&nbsp;
 														<!-- cust_id为模型驱动中的属性，不必在action中再添加该属性，customer中有 -->
 														<a href="${pageContext.request.contextPath }/customer_delete.action?cust_id=${customer.cust_id}" onclick="return window.confirm('确定要删除吗?')">删除</a>

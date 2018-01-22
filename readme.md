@@ -826,4 +826,13 @@ public class Demo {
 文件上传详细介绍参见[struts2](https://github.com/wangwren/Struts/blob/master/readme.md)
 ### 客户删除
 删除客户，并删除客户上传的文件
+### 客户修改
+1. 先通过客户的主键查询出客户的详细信息，显示到修改的页面上
+    * 要把客户的主键和上传文件的路径使用隐藏域保存起来
+
+2. 修改客户的信息
+    * 修改表单的enctype属性（enctype="multipart/form-data"）
+    * 给edit.jsp页面添加文件上传项（）
+    * 如果用户新上传了文件，删除旧的文件，上传新的文件。
+    * 如果用户没有上传新文件，正常更新。
 

@@ -139,7 +139,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	 */
 	public String findByPage() throws Exception{
 		
-		//查询条件，默认没有条件
+		//查询条件，默认没有条件，指定了要查哪个对象
 		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
 		
 		/**

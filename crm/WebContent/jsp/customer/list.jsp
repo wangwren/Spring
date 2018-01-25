@@ -15,7 +15,7 @@
 	//提交分页查询的表单
 	function to_page(page){
 		if(page){
-			//将page值赋值给一个id为page的
+			//将page值赋值给一个id为page的标签
 			$("#page").val(page);
 		}
 		//之后提交表单

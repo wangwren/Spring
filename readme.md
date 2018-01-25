@@ -836,7 +836,7 @@ public class Demo {
     * 如果用户新上传了文件，删除旧的文件，上传新的文件。
     * 如果用户没有上传新文件，正常更新。
 ### 编写通用的Dao
-通用的Dao包含正常的增删改查功能。
+通用的Dao包含正常的增删改查功能。  
     - 可以让指定的dao接口继承通用的dao
     - 让dao实现类继承通用的dao实现类
 通用dao实现类中的主要代码
@@ -881,5 +881,5 @@ public class Demo {
 		}
 	}
 ```
-详细代码[BaseDaoImpl]()
+详细代码[BaseDaoImpl](https://github.com/wangwren/Spring/blob/master/crm/src/vvr/dao/BaseDaoImpl.java)
 

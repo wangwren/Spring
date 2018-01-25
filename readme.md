@@ -882,4 +882,8 @@ public class Demo {
 	}
 ```
 详细代码[BaseDaoImpl](https://github.com/wangwren/Spring/blob/master/crm/src/vvr/dao/BaseDaoImpl.java)
+### 分页显示联系人数据
+- 使用分页查询全部联系人
+- 抽取出分页，写进新的page.jsp，需要时可引用
+- 联系人与客户之间是一对多的关系
 

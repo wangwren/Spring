@@ -835,4 +835,51 @@ public class Demo {
     * 给edit.jsp页面添加文件上传项（）
     * 如果用户新上传了文件，删除旧的文件，上传新的文件。
     * 如果用户没有上传新文件，正常更新。
+### 编写通用的Dao
+通用的Dao包含正常的增删改查功能。
+    - 可以让指定的dao接口继承通用的dao
+    - 让dao实现类继承通用的dao实现类
+通用dao实现类中的主要代码
+```java
+//定义属性
+	private Class clazz;
+	
+	//可以通过有参的构造方法来指定clazz
+	/*
+	 * 这种方式需要在子类中调用父类的构造方法，并传一个对象，但是这种方式很好理解
+	 * public BaseDaoImpl(Class clazz) {
+		this.clazz = clazz;
+	}
+	*/
+	
+	//另一种方式，提供无参的构造方法
+	public BaseDaoImpl() {
+		
+		/*
+		 * 通过spring的特点，在服务器启动时加载对象，创建子类的同时，父类同样也会被加载，执行父类默认的构造方法，通过这种方式拿到对象
+		 * 比如加载CustomerDaoImpl时，继承的BaseDaoImpl也会被加载，执行BaseDaoImpl的默认构造方法
+		 */
+		
+		//最终目的，得到CustomerDaoImpl extends BaseDaoImpl<Customer>中的Customer
+		
+		//此处的this表示子类，由于是加载子类菜创建的父类，所以this表示子类
+		//c表示CustomerDaoImpl的Class对象
+		//第一步
+		Class c = this.getClass();
+		
+		//第二步,获取到BaseDaoImpl<Customer>
+		Type type = c.getGenericSuperclass();	//该方法得到父类
+		
+		//目的，把type转换成子接口
+		if(type instanceof ParameterizedType) {
+			//ParameterizedType 该子接口中的方法可以哪出泛型
+			ParameterizedType ptype = (ParameterizedType) type;
+			
+			//获取Customer,返回的是一个数组，因为泛型可以有多个，比如Map<k,v>
+			Type[] types = ptype.getActualTypeArguments();
+			this.clazz = (Class) types[0];
+		}
+	}
+```
+详细代码[BaseDaoImpl]()
 

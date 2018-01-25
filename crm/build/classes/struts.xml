@@ -44,6 +44,12 @@
     	<action name="dict_*" class="dictAction" method="{1}">
     		<allowed-methods>findByCode</allowed-methods>
     	</action>
+    	
+    	<!-- 配置联系人 -->
+    	<action name="linkman_*" class="linkmanAction" method="{1}">
+    		<result name="page">/jsp/linkman/list.jsp</result>
+    		<allowed-methods>findByPage</allowed-methods>
+    	</action>
     </package>
     
 </struts>

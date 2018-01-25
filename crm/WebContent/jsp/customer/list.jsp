@@ -160,7 +160,7 @@
 														style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
 														<TD><s:property value="#customer.cust_name"/></TD>
 														
-														<!-- 想要显示出来源和级别需要通过外键，而且需要在web.xml中设置延迟加载，否则会报no session的错 -->
+														<!-- 想要显示出 来源和级别需要通过外键，而且需要在web.xml中设置延迟加载，否则会报no session的错 -->
 														<TD>${customer.level.dict_item_name }</TD>
 														<TD>${customer.source.dict_item_name }</TD>
 														
@@ -182,35 +182,10 @@
 								</TR>
 								
 								<TR>
-									<TD><SPAN id=pagelink>
-											<DIV
-												style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
-												<%-- 共[<B>${page.totalCount}</B>]条记录,共[<B>${page.totalPage}</B>]页 --%>
-												
-												当前第[${page.pageCode }]页
-												<s:if test="#request.page.pageCode > 1">
-													[<A href="javascript:to_page(${page.pageCode-1})">前一页</A>]
-												</s:if>
-												
-												<s:iterator var="num" begin="#request.page.startPage" end="#request.page.totalPage" >
-													
-													<B>
-														<a href="javascript:to_page(${num})">${num}</a>
-													</B>
-												
-												</s:iterator>
-												
-												
-												<s:if test="#request.page.pageCode < #request.page.totalPage">
-												[<A href="javascript:to_page(${page.pageCode+1})">后一页</A>] 
-												</s:if>
-												到
-												<input type="text" size="3" id="page" name="pageCode" />
-												页
-												
-												<input type="button" value="Go" onclick="to_page()"/>
-											</DIV>
-									</SPAN></TD>
+									<TD>
+										<!-- 引用分页 -->
+										<%@ include file="/jsp/page.jsp" %>
+									</TD>
 								</TR>
 							</TBODY>
 						</TABLE>

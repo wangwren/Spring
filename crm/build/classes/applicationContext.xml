@@ -42,6 +42,7 @@
 				<value>vvr/domain/User.hbm.xml</value>
 				<value>vvr/domain/Customer.hbm.xml</value>
 				<value>vvr/domain/Dict.hbm.xml</value>
+				<value>vvr/domain/Linkman.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -93,6 +94,20 @@
 	
 	<bean id="dictDao" class="vvr.dao.DictDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!-- 配置联系人 -->
+	<bean id="linkmanAction" class="vvr.web.action.LinkmanAction" scope="prototype">
+		<property name="linkmanService" ref="linkmanService" />
+	</bean>
+	
+	<bean id="linkmanService" class="vvr.service.LinkmanServiceImpl">
+		<property name="linkmanDao" ref="linkmanDao" />
+	</bean>
+	
+	<bean id="linkmanDao" class="vvr.dao.LinkmanDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>
 

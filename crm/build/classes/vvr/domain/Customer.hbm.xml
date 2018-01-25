@@ -29,6 +29,13 @@
 		<many-to-one name="source" class="vvr.domain.Dict" column="cust_source"/>
 		<many-to-one name="industry" class="vvr.domain.Dict" column="cust_industry"/>
 		<many-to-one name="level" class="vvr.domain.Dict" column="cust_level"/>
+		
+		<!-- 配置联系人 -->
+		<set name="linkmans">
+			<!-- 在多方的外键名称 -->
+			<key column="lkm_cust_id"/>
+			<one-to-many class="vvr.domain.Linkman"/>
+		</set>
 	</class>
 	
 </hibernate-mapping>    

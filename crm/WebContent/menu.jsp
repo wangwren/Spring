@@ -158,7 +158,7 @@ A.active {
 														target=main>－ 新增联系人</A></TD>
 												</TR>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="linkmanServlet?method=list"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath}/linkman_findByPage.action"
 														target=main>－联系人列表</A></TD>
 												</TR>
 												

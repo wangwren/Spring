@@ -1,5 +1,8 @@
 package vvr.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 客户表
  * 与客户字典表dict是多对一的关系
@@ -35,6 +38,9 @@ public class Customer {
 	private Dict industry;
 	//级别
 	private Dict level;
+	
+	//配置联系人
+	private Set<Linkman> linkmans = new HashSet<Linkman>();
 	
 	
 	
@@ -105,5 +111,13 @@ public class Customer {
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
+	public Set<Linkman> getLinkmans() {
+		return linkmans;
+	}
+	public void setLinkmans(Set<Linkman> linkmans) {
+		this.linkmans = linkmans;
+	}
+	
+	
 	
 }

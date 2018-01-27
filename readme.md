@@ -886,4 +886,31 @@ public class Demo {
 - 使用分页查询全部联系人
 - 抽取出分页，写进新的page.jsp，需要时可引用
 - 联系人与客户之间是一对多的关系
+### 按条件查询联系人
+- 会使用到JQ返回json数据，就会遇到死循环的问题，需要在某个javabean对象的外键属性上加上注解
+```java
+	//不让此属性转换成json，否则就死循环了，因为在联系人中封装了客户
+	@JSONField(serialize=false)
+	private Set<Linkman> linkmans = new HashSet<Linkman>();
+```
+### 外键问题
+- 由于联系人表中的客户id是外键，并且不能为空，所以当修改了客户时，就会抛出异常，因为客户中也维护了联系人，所以外键只要其中一方维护就可以，即在`Customer.hbm.xml`中更改`set`标签的代码
+```java
+<!-- 配置联系人 ，让客户放弃外键的维护权利 inverse="true"，由联系人来维护-->
+		<set name="linkmans" inverse="true">
+			<!-- 在多方的外键名称 -->
+			<key column="lkm_cust_id"/>
+			<one-to-many class="vvr.domain.Linkman"/>
+		</set>
+```
+### 联系人修改显示性别问题
+直接看代码
+```jsp
+<td>联系人性别：</td>
+<td>
+<!-- 显示联系人性别，其中的if使用c标签，struts的if标签不好使 -->
+    <input type="radio" value="男" name="linkman.lkm_gender" <c:if test="${linkman.lkm_gender=='男' }">checked</c:if>>男
+    <input type="radio" value="女" name="linkman.lkm_gender" <c:if test="${linkman.lkm_gender=='女' }">checked</c:if>>女
+</td>
+```
 

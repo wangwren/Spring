@@ -895,7 +895,7 @@ public class Demo {
 ```
 ### 外键问题
 - 由于联系人表中的客户id是外键，并且不能为空，所以当修改了客户时，就会抛出异常，因为客户中也维护了联系人，所以外键只要其中一方维护就可以，即在`Customer.hbm.xml`中更改`set`标签的代码
-```java
+```xml
 <!-- 配置联系人 ，让客户放弃外键的维护权利 inverse="true"，由联系人来维护-->
 		<set name="linkmans" inverse="true">
 			<!-- 在多方的外键名称 -->

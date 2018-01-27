@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,15 +10,32 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
 
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+<script type="text/javascript">
+//页面加载完成，异步获取到所有客户名称显示到下拉列表框
+$(function(){
+	var url = "${pageContext.request.contextPath}/customer_findAll.action";
+	$.post(url,function(data){
+		$(data).each(function(i,n){
+			var vsId = "${linkman.customer.cust_id}";
+			if(vsId == n.cust_id){
+				$("#customerId").append("<option value='"+n.cust_id+"' selected>"+n.cust_name+"</option>");
+			}else{
+				$("#customerId").append("<option value='"+n.cust_id+"'>"+n.cust_name+"</option>");
+			}
+		});
+	},"json");
+})
+</script>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/linkmanServlet?method=editsubmit"
+		action="${pageContext.request.contextPath }/linkman_update.action"
 		method=post>
-		<input type="hidden" name="lkmId" value="${linkman.lkmId }"/>
+		<input type="hidden" name="linkman.lkm_id" value="${linkman.lkm_id }"/>
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
@@ -48,31 +66,34 @@
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<tr>
 								<td>所属客户：</td>
-								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px" value="${linkman.cstCustomer.custId}" /></td>
+								<td colspan="3">
+									<select id="customerId" name="linkman.customer.cust_id">
+									</select>
+								</td>
 							</tr>
 							<TR>
 								<td>联系人名称：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmName" value="${linkman.lkmName}" >
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_name" value="${linkman.lkm_name}" >
 								</td>
 								<td>联系人性别：</td>
 								<td>
-								<input type="radio" value="1" name="lkmGender" <c:if test="${linkman.lkmGender=='1' }">checked</c:if>>男
-								
-								<input type="radio" value="2" name="lkmGender" <c:if test="${linkman.lkmGender=='2' }">checked</c:if>>女
+									<!-- 显示联系人性别，其中的if使用c标签，struts的if标签不好使 -->
+									<input type="radio" value="男" name="linkman.lkm_gender" <c:if test="${linkman.lkm_gender=='男' }">checked</c:if>>男
+									<input type="radio" value="女" name="linkman.lkm_gender" <c:if test="${linkman.lkm_gender=='女' }">checked</c:if>>女
 								</td>
 							</TR>
 							<TR>
 								<td>联系人办公电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmPhone" value="${linkman.lkmPhone}">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_phone" value="${linkman.lkm_phone}">
 								</td>
 								<td>联系人手机 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmMobile" value="${linkman.lkmMobile}">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_mobile" value="${linkman.lkm_mobile}">
 								</td>
 							</TR>
 							<tr>

@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -16,6 +19,7 @@ import vvr.domain.Customer;
 import vvr.domain.Dict;
 import vvr.domain.PageBean;
 import vvr.service.CustomerService;
+import vvr.web.utils.FastJsonUtil;
 import vvr.web.utils.UploadUtils;
 
 public class CustomerAction extends ActionSupport implements ModelDriven<Customer>,RequestAware{
@@ -257,6 +261,24 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		customerService.update(customer);
 		
 		return "update";
+	}
+	
+	
+	/**
+	 * 查询所以客户
+	 */
+	public String findAll() throws Exception{
+		
+		List<Customer> list = customerService.findAll();
+		
+		//转换成json
+		String jsonString = FastJsonUtil.toJSONString(list);
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+		//输出至浏览器
+		FastJsonUtil.write_json(response, jsonString);
+		
+		return NONE;
 	}
 
 }

@@ -3,9 +3,13 @@ package vvr.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 客户表
  * 与客户字典表dict是多对一的关系
+ * 
+ * 客户表与联系人表是一对多的关系
  * @author wwr
  *
  */
@@ -40,6 +44,8 @@ public class Customer {
 	private Dict level;
 	
 	//配置联系人
+	//不让此属性转换成json，否则就死循环了，因为在联系人中封装了客户
+	@JSONField(serialize=false)
 	private Set<Linkman> linkmans = new HashSet<Linkman>();
 	
 	

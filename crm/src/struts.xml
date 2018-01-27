@@ -37,7 +37,7 @@
     			<!-- 设置扩展名 -->
     			<param name="fileUpload.allowedExtensions">.jpg,.png</param>
     		</interceptor-ref>
-    		<allowed-methods>add,findByPage,initAddUI,delete,initUpdate,update</allowed-methods>
+    		<allowed-methods>add,findByPage,initAddUI,delete,initUpdate,update,findAll</allowed-methods>
     	</action>
     	
     	<!-- 配置客户字典 -->
@@ -48,7 +48,12 @@
     	<!-- 配置联系人 -->
     	<action name="linkman_*" class="linkmanAction" method="{1}">
     		<result name="page">/jsp/linkman/list.jsp</result>
-    		<allowed-methods>findByPage</allowed-methods>
+    		<result name="init">/jsp/linkman/add.jsp</result>
+    		<result name="save" type="redirectAction">linkman_findByPage.action</result>
+    		<result name="delete" type="redirectAction">linkman_findByPage.action</result>
+    		<result name="initUpdate">/jsp/linkman/edit.jsp</result>
+    		<result name="update" type="redirectAction">linkman_findByPage.action</result>
+    		<allowed-methods>findByPage,initAddUI,save,delete,initUpdate,update</allowed-methods>
     	</action>
     </package>
     

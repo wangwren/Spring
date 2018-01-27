@@ -96,12 +96,18 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 		return t;
 	}
 
+	/**
+	 * 查询所有
+	 */
 	@Override
 	public List<T> findAll() {
 		return (List<T>) this.getHibernateTemplate().find("from " + clazz.getSimpleName());
 	}
 	
 	
+	/**
+	 * 分页查询
+	 */
 	@Override
 	public PageBean<T> findByPage(Integer pageCode, Integer pageSize, DetachedCriteria criteria) {
 		

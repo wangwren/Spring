@@ -21,5 +21,28 @@ public class LinkmanServiceImpl implements LinkmanService {
 		
 		return linkmanDao.findByPage(pageCode, pageSize, criteria);
 	}
+
+	@Override
+	public void save(Linkman linkman) {
+		linkmanDao.save(linkman);
+		
+	}
+
+	@Override
+	public Linkman findById(Long lkm_id) {
+		
+		return linkmanDao.findById(lkm_id);
+	}
+
+	@Override
+	public void delete(Linkman lk) {
+		linkmanDao.delete(lk);
+		
+	}
+
+	@Override
+	public void update(Linkman linkman) {
+		linkmanDao.update(linkman);
+	}
 	
 }

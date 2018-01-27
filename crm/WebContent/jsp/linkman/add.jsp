@@ -9,13 +9,24 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
 
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+<script type="text/javascript">
+	$(function(){
+		var url = "${pageContext.request.contextPath}/customer_findAll.action";
+		$.post(url,function(data){
+			$(data).each(function(i,n){
+				$("#customerId").append("<option value='"+n.cust_id+"'>"+n.cust_name+"</option>");
+			});
+		},"json");
+	})
+</script>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/linkmanServlet?method=addsubmit"
+		action="${pageContext.request.contextPath }/linkman_save.action"
 		method=post>
 		
 
@@ -48,30 +59,33 @@
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<tr>
 								<td>所属客户：</td>
-								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px"/></td>
+								<td colspan="3">
+									<select id="customerId" name="linkman.customer.cust_id">
+									</select>
+								</td>
 							</tr>
 							<TR>
 								<td>联系人名称：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmName">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_name">
 								</td>
 								<td>联系人性别：</td>
 								<td>
-								<input type="radio" value="1" name="lkmGender">男
-								<input type="radio" value="2" name="lkmGender">女
+								<input type="radio" value="男" name="linkman.lkm_gender">男
+								<input type="radio" value="女" name="linkman.lkm_gender">女
 								</td>
 							</TR>
 							<TR>
 								<td>联系人办公电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmPhone">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_phone">
 								</td>
 								<td>联系人手机 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmMobile">
+														style="WIDTH: 180px" maxLength=50 name="linkman.lkm_mobile">
 								</td>
 							</TR>
 							<tr>

@@ -18,6 +18,22 @@
 		document.customerForm.submit();
 		
 	}
+	
+	
+	//页面加载完成，异步获取到所有客户名称显示到下拉列表框
+	$(function(){
+		var url = "${pageContext.request.contextPath}/customer_findAll.action";
+		$.post(url,function(data){
+			$(data).each(function(i,n){
+				var vsId = "${linkman.customer.cust_id}";
+				if(vsId == n.cust_id){
+					$("#customerId").append("<option value='"+n.cust_id+"' selected>"+n.cust_name+"</option>");
+				}else{
+					$("#customerId").append("<option value='"+n.cust_id+"'>"+n.cust_name+"</option>");
+				}
+			});
+		},"json");
+	})
 </SCRIPT>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
@@ -62,8 +78,15 @@
 											<TBODY>
 												<TR>
 													<TD>联系人名称：</TD>
-													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="linkman.lkm_name"></TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="linkman.lkm_name" value="${linkman.lkm_name}">
+													</TD>
+													
+													<td>
+														<select id="customerId" name="linkman.customer.cust_id">
+															<option value="">---请选择---</option>
+														</select>
+													</td>
 													
 													<TD><INPUT class=button id=sButton2 type=submit
 														value=" 筛选 " name=sButton2></TD>
@@ -97,9 +120,9 @@
 													<TD><s:property value="#linkman.lkm_mobile"/></TD>
 													<TD><s:property value="#linkman.customer.cust_name"/></TD>
 													<TD>
-													<a href="${pageContext.request.contextPath }/linkmanServlet?method=edit&lkmId=${linkman.lkm_id}">修改</a>
+													<a href="${pageContext.request.contextPath }/linkman_initUpdate.action?linkman.lkm_id=<s:property value="#linkman.lkm_id"/>">修改</a>
 													&nbsp;&nbsp;
-													<a href="${pageContext.request.contextPath }/linkmanServlet?method=delete&lkmId=${linkman.lkm_id}">删除</a>
+													<a href="${pageContext.request.contextPath }/linkman_delete.action?linkman.lkm_id=<s:property value="#linkman.lkm_id"/>">删除</a>
 													</TD>
 												</TR>
 												</s:iterator>

@@ -26,4 +26,6 @@ public interface CustomerService {
 	public void delte(Customer customer);
 
 	public void update(Customer customer);
+
+	public List<Customer> findAll();
 }

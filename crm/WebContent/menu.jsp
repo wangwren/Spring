@@ -179,11 +179,11 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="#"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath}/jsp/visit/add.jsp"
 														target=main>－新增客户拜访</A></TD>
 												</TR>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="#"
+													<TD class=menuSmall><A class=style2 href="${pageContext.request.contextPath}/visit_findByPage.action"
 														target=main>－客户拜访列表</A></TD>
 												</TR>
 												

@@ -11,8 +11,13 @@
 	
 	
     <package name="crm" extends="struts-default" namespace="/">
+    
+    	<!-- 配置拦截器 -->
+		<interceptors>
+			<interceptor name="userInterceptor" class="vvr.web.interceptor.UserInterceptor"/>
+		</interceptors>
     	
-<!--     	配置一个全局的跳转界面，返回LOGIN就跳转到登录界面-->
+		<!--配置一个全局的跳转界面，返回LOGIN就跳转到登录界面-->
     	<global-results>
     		<result name="login" type="redirect">/login.jsp</result>
     	</global-results>
@@ -20,6 +25,13 @@
     	<!-- 配置用户 -->
     	<action name="user_*" class="userAction" method="{1}">
     		<result name="loginOK" type="redirect">/index.jsp</result>
+    		
+    		<interceptor-ref name="userInterceptor">
+    			<!-- 对于以下声明的方法不拦截 login,regist,checkCode-->
+				<param name="excludeMethods">login,regist,checkCode</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
+			
     		<allowed-methods>regist,checkCode,login,exit</allowed-methods>
     	</action>
     	
@@ -32,16 +44,24 @@
     		<result name="delete" type="redirectAction">customer_findByPage.action</result>
     		<result name="initUpdate">/jsp/customer/edit.jsp</result>
     		<result name="update" type="redirectAction">customer_findByPage.action</result>
+    		
+    		<interceptor-ref name="userInterceptor"/>
+			<!-- 引入默认的拦截器 -->
     		<!-- 设置上传文件的格式 -->
     		<interceptor-ref name="defaultStack">
     			<!-- 设置扩展名 -->
     			<param name="fileUpload.allowedExtensions">.jpg,.png</param>
     		</interceptor-ref>
+    		
     		<allowed-methods>add,findByPage,initAddUI,delete,initUpdate,update,findAll</allowed-methods>
     	</action>
     	
     	<!-- 配置客户字典 -->
     	<action name="dict_*" class="dictAction" method="{1}">
+    	
+    		<interceptor-ref name="userInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
+			
     		<allowed-methods>findByCode</allowed-methods>
     	</action>
     	
@@ -53,7 +73,22 @@
     		<result name="delete" type="redirectAction">linkman_findByPage.action</result>
     		<result name="initUpdate">/jsp/linkman/edit.jsp</result>
     		<result name="update" type="redirectAction">linkman_findByPage.action</result>
+    		
+    		<interceptor-ref name="userInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
+    		
     		<allowed-methods>findByPage,initAddUI,save,delete,initUpdate,update</allowed-methods>
+    	</action>
+    	
+    	<!-- 客户拜访 -->
+    	<action name="visit_*" class="visitAction" method="{1}">
+    		<result name="save" type="redirectAction">visit_findByPage.action</result>
+    		<result name="page">/jsp/visit/list.jsp</result>
+    		
+    		<interceptor-ref name="userInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
+    		
+    		<allowed-methods>save,findByPage</allowed-methods>
     	</action>
     </package>
     

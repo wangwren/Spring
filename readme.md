@@ -913,4 +913,70 @@ public class Demo {
     <input type="radio" value="女" name="linkman.lkm_gender" <c:if test="${linkman.lkm_gender=='女' }">checked</c:if>>女
 </td>
 ```
+### 客户拜访
+#### 描述
+1. 客户关系拜访表是该系统的用户和客户之间的关系建立表
+    * 用户可以拜访多个客户
+    * 客户也可以被多个用户所拜访
+    * 所以：用户和客户之间应该是多对多的关系，那么客户拜访表就是用户和客户的中间表。
+    * 正常的情况下，在用户和客户中添加set集合，在映射的配置文件中配置<set>标签即可。
+    * 但是现在客户拜访中间表中存在其他的字段，默认的情况下，中间表只能维护外键。而不能维护其他的字段。所以需要把多对多拆开成两个一对多。
+
+2. 用户与客户拜访表是一对多的关系
+3. 客户与客户拜访表是一对多的关系
+4. 创建客户拜访表的实体类和映射配置文件
+5. 编写客户拜访的Action等类和完成配置
+#### 客户拜访列表查询
+1. 先导入客户拜访的页面
+    - 导入日期控件
+2. 查询我的客户拜访记录
+    * 登录的用户，点击客户拜访列表，查询该用户下的所有的拜访记录
+    - 通过用户的主键查询**该用户下**的所有的拜访记录
+#### 新增客户拜访
+- 获取当当前登录用户，保存至visit表中
+#### 按条件查询客户信息列表功能
+1. 修改list.jsp的页面，添加开始和结束日期的选项
+```jsp
+    <TD>拜访时间：</TD>
+    <TD>
+        <INPUT class=textbox id="beginDate" style="WIDTH: 80px" maxLength=50 name="beginDate">
+        至
+        <INPUT class=textbox id="endDate" style="WIDTH: 80px" maxLength=50 name="endDate">
+    </TD>
+```
+### 用户登录拦截器
+1. 功能：如果用户没有登录，是不能操作后台的功能的！！
+2. 代码如下
+```java
+protected String doIntercept(ActionInvocation invocation) throws Exception {
+		
+		/**
+		 * 使用这种Map方式的session，会抛空异常，原因不清楚，反正在拦截器中不好使
+		 * User user = (User) session.get("user");
+		 */
+		
+		User user = (User) ServletActionContext.getRequest().getSession().getAttribute("user");
+		//如果没有登录
+		if(user == null){
+			return "login";
+		}
+		// 执行下一个拦截器
+		return invocation.invoke();
+	}
+```
+- struts.xml中配置
+```xml
+<!--写在package中-->
+    <interceptors>
+        <interceptor name="UserInterceptor" class="com.itheima.web.interceptor.UserInterceptor"/>
+    </interceptors>
+    
+    <!--写在某个action中-->
+    <interceptor-ref name="userInterceptor">
+		<!-- 对于以下声明的方法不拦截 login,regist,checkCode-->
+		<param name="excludeMethods">login,regist,checkCode</param>
+	</interceptor-ref>
+	<!--默认拦截器-->
+	<interceptor-ref name="defaultStack"/>
+```
 

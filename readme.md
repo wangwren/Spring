@@ -6,8 +6,8 @@
         - **[Spring框架中标签的配置](#spring框架中标签的配置)**
         - **[依赖注入(DI)](#依赖注入di)**
         - **[Spring框架的属性注入](#spring框架的属性注入)**
-        - **[Spring的2.5版本中提供了一种:p名称空间的注入](#spring的2.5版本中提供了一种:p名称空间的注入)**
-        - **[Spring的3.0提供了一种:SpEL注入方式](#spring的3.0提供了一种:SpEL注入方式)**
+        - **[Spring的2.5版本中提供了一种:p名称空间的注入](#spring的2.5版本中提供了一种p名称空间的注入)**
+        - **[Spring的3.0提供了一种:SpEL注入方式](#spring的3.0提供了一种SpEL注入方式)**
         - **[数组，集合(List,Set,Map),Properties等的注入](#数组，集合list,set,map,properties等的注入)**
         - **[Spring框架的配置文件分开管理](#spring框架的配置文件分开管理)**
         - **[Spring框架整合WEB(不是最终方案)](#spring框架整合web不是最终方案)**

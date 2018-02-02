@@ -16,7 +16,7 @@
 	<!-- 配置连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/crm?useSSL=true"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/crm?autoReconnect=true"/>
 		<property name="user" value="root"/>
 		<property name="password" value="root"/>
 	</bean>
@@ -33,6 +33,7 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
 			</props>
 		</property>
 		

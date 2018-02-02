@@ -119,7 +119,8 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 			String newFileName = UploadUtils.makeFileName(uploadFileName);
 			
 			//指定上传的路径，不要传到项目中的路径，这样服务器重新部署文件就没了，最好保存到tomcat的目录下
-			String path = "D:\\Tomact\\webapps\\upload\\";
+			String path = "D:\\Tomcat 7.0\\webapps\\upload\\";
+			//可以通过 http://localhost:8080/upload/5a19c413e0c5404caf33b5fa4b1aa76f.png该路径来访问图片
 			
 			//创建一个file对象
 			File file = new File(path + newFileName);

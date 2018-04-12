@@ -372,7 +372,7 @@ public class Demo2 {
 #### AOP的通知类型
 - 前置通知
     - 在目标类的方法执行之前执行
-    - 配置文件信息:`<aop:after method="before" pointcut-ref="myPointcut3"/>`
+    - 配置文件信息:`<aop:before method="before" pointcut-ref="myPointcut3"/>`
     - 应用:可以对方法的参数来做校验
 - 最终通知
     - 在目标类的方法执行之后执行，如果程序出现了异常，最终通知也会执行。
